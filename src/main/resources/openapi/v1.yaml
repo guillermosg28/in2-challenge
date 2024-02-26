@@ -1,0 +1,273 @@
+---
+openapi: 3.0.0
+info:
+  title: API de Naves Espaciales
+  description: API para el mantenimiento CRUD de naves espaciales de series y películas.
+  version: 1.0.0
+servers:
+  - url: http://localhost:5055/api/v1
+tags:
+  - name: in2
+    description: IN2 operations
+
+paths:
+  /spacecrafts:
+    get:
+      tags:
+        - spacecrafts
+      summary: Obtener todas las naves espaciales
+      operationId: getAllSpacecrafts
+      description: Obtiene todas las naves espaciales
+      parameters:
+        - name: name
+          in: query
+          description: Nombre de la nave espacial
+          required: true
+          schema:
+            type: string
+            example: abc
+        - name: page
+          in: query
+          description: Número de página
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Operation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllSpacecraftsResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conflict'
+    post:
+      tags:
+        - spacecrafts
+      summary: Crear una nueva nave espacial
+      operationId: createSpacecraft
+      description: Crea una nueva nave espacial
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Spacecraft'
+      responses:
+        '201':
+          description: Operation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Spacecraft'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conflict'
+
+  /spacecrafts/{id}:
+    get:
+      tags:
+        - spacecrafts
+      summary: Obtener una nave espacial por su ID
+      operationId: getSpacecraftById
+      description: Obtiene una nave espacial por su ID
+      parameters:
+        - name: id
+          in: path
+          description: ID de la nave espacial
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Operation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Spacecraft'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conflict'
+    put:
+      tags:
+        - spacecrafts
+      summary: Actualizar una nave espacial por su ID
+      operationId: updateSpacecraftById
+      description: Actualiza una nave espacial por su ID
+      parameters:
+        - name: id
+          in: path
+          description: ID de la nave espacial
+          required: true
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Spacecraft'
+      responses:
+        '201':
+          description: Operation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Spacecraft'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conflict'
+    delete:
+        tags:
+            - spacecrafts
+        summary: Eliminar una nave espacial por su ID
+        operationId: deleteSpacecraftById
+        description: Elimina una nave espacial por su ID
+        parameters:
+          - name: id
+            in: path
+            description: ID de la nave espacial
+            required: true
+            schema:
+              type: integer
+              example: 1
+        responses:
+          '201':
+            description: Operation successful
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/SuccessResponse'
+          '400':
+            description: Bad request
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/BadRequest'
+          '409':
+            description: Conflict
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Conflict'
+
+
+components:
+  schemas:
+    BadRequest:
+      description: Malformed request
+      allOf:
+        - $ref: '#/components/schemas/ErrorResponse'
+    Conflict:
+      description: Conflict
+      allOf:
+        - $ref: '#/components/schemas/ErrorResponse'
+
+    #Response
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Error message"
+        code:
+          type: string
+          example: "Error"
+    SuccessResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Success message"
+        code:
+          type: string
+          example: "Success"
+
+    AllSpacecraftsResponse:
+      type: object
+      properties:
+        spacecrafts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Spacecraft'
+        page:
+          type: integer
+          example: 1
+        size:
+          type: integer
+          example: 10
+        totalElements:
+            type: integer
+            example: 100
+        totalPages:
+            type: integer
+            example: 10
+        last:
+            type: boolean
+            example: false
+        first:
+            type: boolean
+            example: true
+
+    #Model
+    Spacecraft:
+      type: object
+      properties:
+          id:
+            type: integer
+            example: 1
+          name:
+            type: string
+            example: "Millennium Falcon"
+          production_type:
+            type: string
+            example: "Movie"
+          model:
+            type: string
+            example: "YT-1300"
+          manufacturer:
+            type: string
+            example: "Corellian Engineering Corporation"
+          passengers:
+           type: integer
+           example: 6

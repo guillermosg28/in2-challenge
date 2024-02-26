@@ -1,0 +1,195 @@
+{
+	"info": {
+		"_postman_id": "b9a0125e-c941-4bec-9864-bbe63fa7daa6",
+		"name": "IN2_CHALLENGE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2809472",
+		"_collection_link": "https://www.postman.com/warped-station-37706/workspace/in2/collection/2809472-b9a0125e-c941-4bec-9864-bbe63fa7daa6?action=share&source=collection_link&creator=2809472"
+	},
+	"item": [
+		{
+			"name": "spacecrafts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{IN2_CHALLENGE_API_URL}}/api/v1/spacecrafts?page=1&name=",
+					"host": [
+						"{{IN2_CHALLENGE_API_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"spacecrafts"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "name",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "spacecraftsSearch",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{IN2_CHALLENGE_API_URL}}/api/v1/spacecrafts?page=1&name=wing",
+					"host": [
+						"{{IN2_CHALLENGE_API_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"spacecrafts"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "name",
+							"value": "wing"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "spacecraft",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{IN2_CHALLENGE_API_URL}}/api/v1/spacecrafts/1",
+					"host": [
+						"{{IN2_CHALLENGE_API_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"spacecrafts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "spacecraftNegative",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{IN2_CHALLENGE_API_URL}}/api/v1/spacecrafts/-1",
+					"host": [
+						"{{IN2_CHALLENGE_API_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"spacecrafts",
+						"-1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "store",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Test store\",\n    \"production_type\": \"Series\",\n    \"model\": \"Model store\",\n    \"manufacturer\": \"Manufacturer store\",\n    \"passengers\": 15\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{IN2_CHALLENGE_API_URL}}/api/v1/spacecrafts",
+					"host": [
+						"{{IN2_CHALLENGE_API_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"spacecrafts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"wing\",\n    \"production_type\": \"Series\",\n    \"model\": \"Model1 update\",\n    \"manufacturer\": \"Manufacturer1\",\n    \"passengers\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{IN2_CHALLENGE_API_URL}}/api/v1/spacecrafts/1",
+					"host": [
+						"{{IN2_CHALLENGE_API_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"spacecrafts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1,\n    \"name\": \"wing\",\n    \"production_type\": \"Series\",\n    \"model\": \"Model1 update\",\n    \"manufacturer\": \"Manufacturer1\",\n    \"passengers\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{IN2_CHALLENGE_API_URL}}/api/v1/spacecrafts/11",
+					"host": [
+						"{{IN2_CHALLENGE_API_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"spacecrafts",
+						"11"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

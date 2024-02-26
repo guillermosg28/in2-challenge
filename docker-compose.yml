@@ -1,0 +1,44 @@
+version: '3'
+services:
+
+  in2-mysql:
+    image: mysql:8.0
+    container_name: in2-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: in2
+      MYSQL_DATABASE: challenge
+      MYSQL_PASSWORD: root
+    ports:
+      - 3306:3306
+    networks:
+    - in2-network
+
+  in2-kafka:
+    image: johnnypark/kafka-zookeeper:2.6.0
+    container_name: in2-kafka
+    restart: always
+    ports:
+      - "2181:2181"
+      - "9092:9092"
+    environment:
+    - NUM_PARTITIONS=3
+    networks:
+    - in2-network
+
+  in2-ms-spacecrafts:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "5055:5055"
+    container_name: in2-ms-spacecrafts
+    depends_on:
+      - in2-mysql
+    networks:
+    - in2-network
+
+networks:
+  in2-network:
+    driver: bridge
